@@ -1,7 +1,7 @@
 name: flutter_star_bar
-description: A new Flutter package project.
+description: star bar
 version: 0.0.1
-homepage:
+homepage: https://github.com/lazyee/flutter_star_bar
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
