@@ -70,13 +70,7 @@ class _StarBarState extends State<StarBar> {
     widget.onStarChanged?.call(starCount.toDouble());
   }
 
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> starList = [];
-    for (int i = 1; i <= widget.maxStarCount; i++) {
-      starList.add(_buildStar(i));
-    }
-
+  Widget _buildGestueDetector(Widget child) {
     return GestureDetector(
         onPanUpdate: (details) {
           _refreshStarCount(_calculateStarCount(details.localPosition.dx));
@@ -84,8 +78,22 @@ class _StarBarState extends State<StarBar> {
         onPanDown: (details) {
           _refreshStarCount(_calculateStarCount(details.localPosition.dx));
         },
-        child: Container(
-            width: widget.starSize * widget.maxStarCount,
-            child: Row(children: starList)));
+        child: child);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> starList = [];
+    for (int i = 1; i <= widget.maxStarCount; i++) {
+      starList.add(_buildStar(i));
+    }
+    Widget child = Container(
+        width: widget.starSize * widget.maxStarCount,
+        child: Row(children: starList));
+    if (widget.onStarChanged != null) {
+      return _buildGestueDetector(child);
+    }
+
+    return child;
   }
 }
